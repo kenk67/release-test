@@ -31,15 +31,15 @@ Example:
     - fix: fix a bug
       **Output**: the next release will be ```1.0.0```
 
-**Note**: The increment can be controlled by using 2 flags in the config file, which are ```major_on_zero```and
-```allow_zero_version```.
-
-- allow_zero_version: if ```true```, then first release will be ```0.1.0```. Else it will start from ```1.0.0```
-- major_on_zero: If true, the breaking change will increment the major version by 1, else it will increment the minor
-  version by 1.
-    - when a stable release is happening, then change this from ```false``` to ```true```, so that the next release will
-      be a major release.
-    - This is ignored if allow_zero_version if ```false```, because the first release will be a major release.
+- **Note**: The increment can be controlled by using 2 flags in the config file, which are ```major_on_zero```and
+  ```allow_zero_version```.
+    - allow_zero_version: if ```true```, then first release will be ```0.1.0```. Else it will start from ```1.0.0```
+    - major_on_zero: If true, the breaking change will increment the major version by 1, else it will increment the
+      minor
+      version by 1.
+        - when a stable release is happening, then change this from ```false``` to ```true```, so that the next release
+          will
+          be a major release.
+        - This is ignored if allow_zero_version if ```false```, because the first release will be a major release.
 
 ## Changelog
-
