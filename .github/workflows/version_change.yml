@@ -1,0 +1,41 @@
+name: Version Bump and Changelog
+
+on:
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    concurrency: release
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Python Semantic Release
+        uses: python-semantic-release/python-semantic-release@v8.7.2
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          git_committer_name: "github-actions"
+          git_committer_email: "action@github.com"
+          repository_username: ${{ github.repository_owner }}
+          repository_password: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref_name }}
+          changelog: true
+          build: true
+          create_pr: true
+          pr_target_branch: ${{ github.event.repository.default_branch }}
+          pr_title_template: "Version bump to {version}"
+          pr_body_template: |
+            This PR contains:
+            - Version bump to {version}
+            - Updated changelog with recent changes
+            
+            Generated automatically by semantic-release.
