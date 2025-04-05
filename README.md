@@ -65,6 +65,10 @@ Example:
 - *Things to follow*:
     - Don't use the same pre-release token for release branches
       ```( A “prerelease token” is the string used to suffix onto the 3-digit form of a full semantic version. For example, in the version 1.2.3-beta.1, the prerelease token is "beta")```
+- Use `--prerelease` on:
+    - Any **non-main** branch (e.g., `feature/*`, `beta`, `preview`)
+    - Preview builds, testing environments, or CI-generated versions
+    - Cases where the code isn't ready for production
 
 Example:
 
