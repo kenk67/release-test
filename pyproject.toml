@@ -3,7 +3,7 @@ name = "release-test"
 version = "0.1.0"
 description = ""
 authors = [
-    {name = "kenk67",email = "rahulmg1899i@gmail.com"}
+    { name = "kenk67", email = "rahulmg1899i@gmail.com" }
 ]
 readme = "README.md"
 requires-python = ">=3.12"
