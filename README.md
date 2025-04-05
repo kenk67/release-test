@@ -1,5 +1,19 @@
 # How the semantic python release works
 
+---
+
+#### *python semantic terms*
+
+1. A release refers to the automated process of
+    - Determining the next version number
+    - Creating a changelog
+    - Tagging the release i.e adding a tag to the latest commit
+    - Miscellaneous:
+        - publishing the package to pypi
+        - Building the package
+
+---
+
 ## Version bump
 
 - The semantic release is a tool that automates the versioning and package publishing process based on the commit
@@ -41,5 +55,11 @@ Example:
           will
           be a major release.
         - This is ignored if allow_zero_version if ```false```, because the first release will be a major release.
+
+## Multibranch release
+
+- Multiple branches can be elected for release
+- *Things to follow*:
+    - Don't use the same pre-release token for release branches
 
 ## Changelog
