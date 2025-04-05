@@ -17,7 +17,6 @@ dependencies = [
 [tool.poetry]
 packages-mode = false
 
-
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
@@ -39,6 +38,11 @@ version_variables = ["release_test/__init__.py:__version__"]
 match = "(main|master)"
 prerelease_token = "rc"
 prerelease = false
+
+[tool.semantic_release.branches.feature]
+match = "feature/*"
+prerelease_token = "feat"
+prerelease = true
 
 [tool.semantic_release.changelog]
 changelog_file = ""
