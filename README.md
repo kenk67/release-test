@@ -97,4 +97,10 @@ semantic-release version --build-metadata $(git branch --show-current)
         - → `v1.3.0` (Assuming it has `feat:` commits, can also contain `fix:`)
         - → `v1.2.1` (Assuming it has `fix:` commits only)
 
+- When the pre-release token is not used for ```feature``` or ```testing``` branches
+    - A feature branch can have a full tagged release (e.g., `v1.2.0`) even if it is not ready for production.
+        - This can cause tag conflicts when the version bump is being done in ```main``` branch, since the same tag is
+          already created in the feature branch.
+        - Which leads to a premature or unintended release.
+
 ## Changelog
