@@ -106,4 +106,35 @@ semantic-release version --build-metadata $(git branch --show-current)
           already created in the feature branch.
         - Which leads to a premature or unintended release.
 
+### Multibranch Release Configuration
+
+You can define **release groups** in your configuration file (e.g., `pyproject.toml`) to control how different branches
+produce releases.
+
+- Parameters:
+    - **`match`**
+        - **Required:** Yes
+        - **Default:** N/A
+        - **Description:** Python regex to match the active branch name. If it matches, this release group is applied.
+    - **`prerelease`**
+        - **Required:** No
+        - **Default:** `false`
+        - **Description:** If set to `true`, branches in this group generate prereleases instead of full releases.
+    - **`prerelease_token`**
+        - **Required:** No
+        - **Default:** `"rc"`
+        - **Description:** The token used in the version string for prereleases (e.g., `v1.2.0-alpha.1` if token is
+          `"alpha"`).
+
+Example:
+
+```toml
+[tool.semantic_release.branches.features]
+match = "^feature-.*"
+prerelease = true
+prerelease_token = "alpha"
+```
+
+- All `feature-*` branches produce prereleases like `v1.2.0-alpha.1`.
+
 ## Changelog
