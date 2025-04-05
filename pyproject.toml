@@ -39,11 +39,6 @@ match = "(main|master)"
 prerelease_token = "rc"
 prerelease = false
 
-[tool.semantic_release.branches.feature]
-match = "feature/*"
-prerelease_token = "feat"
-prerelease = true
-
 [tool.semantic_release.changelog]
 exclude_commit_patterns = []
 mode = "init"
