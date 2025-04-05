@@ -2,65 +2,43 @@ name: Version Bump and Changelog
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main  # Optionally trigger on pushes to main
 
 jobs:
-  version-bump:
+  release:
     runs-on: ubuntu-latest
+    concurrency: release
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - name: Python Semantic Release
+        uses: python-semantic-release/python-semantic-release@v8.7.2
         with:
-          python-version: '3.12'
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install poetry
-          poetry install
-
-      - name: Setup GitHub CLI
-        run: |
-          gh auth login --with-token <<< "${{ secrets.GITHUB_TOKEN }}"
-
-      - name: Python Semantic Release - Dry Run
-        id: semantic-release-dry
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "action@github.com"
-          # Run semantic-release in dry-run mode to capture the version
-          NEW_VERSION=$(poetry run semantic-release version --dry-run | grep "New version would be" | awk '{print $5}')
-          echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
-          echo "Determined new version would be: $NEW_VERSION"
-
-      - name: Create changelog branch
-        run: |
-          git checkout -b changelog
-
-      - name: Python Semantic Release - Apply Changes
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          # Actually apply the version changes and generate changelog
-          poetry run semantic-release version
-
-      - name: Push changes to changelog branch
-        run: |
-          git push -u origin changelog
-
-      - name: Create PR with GitHub CLI
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh pr create \
-            --title "Version bump to ${{ env.NEW_VERSION }}" \
-            --body "This PR contains:\n- Version bump to ${{ env.NEW_VERSION }}\n- Updated changelog with recent changes\n\nGenerated automatically by semantic-release." \
-            --base ${{ github.ref_name }} \
-            --head changelog
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          git_committer_name: "github-actions"
+          git_committer_email: "action@github.com"
+          repository_username: ${{ github.repository_owner }}
+          repository_password: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref_name }}
+          changelog: true
+          build: true
+          create_pr: true
+          pr_target_branch: ${{ github.event.repository.default_branch }}
+          pr_title_template: "Version bump to {version}"
+          pr_body_template: |
+            This PR contains:
+            - Version bump to {version}
+            - Updated changelog with recent changes
+            
+            Generated automatically by semantic-release.
