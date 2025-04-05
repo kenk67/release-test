@@ -7,7 +7,7 @@
 1. A release refers to the automated process of
     - Determining the next version number
     - Creating a changelog
-    - Tagging the release i.e adding a tag to the latest commit
+    - Tagging the release i.e. adding a tag to the latest commit
     - Miscellaneous:
         - publishing the package to pypi
         - Building the package
@@ -86,7 +86,7 @@ Example:
 
 **Solution**: Use build metadata to differentiate between the two branches
 
-```commandline
+```bash
 semantic-release version --build-metadata $(git branch --show-current)
 ```
 
@@ -94,8 +94,7 @@ semantic-release version --build-metadata $(git branch --show-current)
     - `v1.2.0-alpha.1+feature-1`
     - `v1.2.0-alpha.1+feature-2`
 - When the branches are merged, it won't cause any conflicts and the bump in the main branch (since it only depends on
-  the)
-  commit messages) will be:
+  the commit messages) will be:
     - 1st merge → `v1.2.0` (Assuming it has `feat:` commits, can also contain `fix:`)
     - 2nd merge
         - → `v1.3.0` (Assuming it has `feat:` commits, can also contain `fix:`)
