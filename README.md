@@ -153,6 +153,8 @@ prerelease_token = "alpha"
           file.
 - `exclude_commit_patterns` → This can be used to remove commits that could not be parsed by the parser and are placed
   in the unknown section in the release or changelog.
+- The difference between the changelog and release notes is that the release notes only contain the changes for the
+  current release
 
 ## Other configurations
 
