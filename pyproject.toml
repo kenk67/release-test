@@ -15,7 +15,7 @@ dependencies = [
 ]
 
 [tool.poetry]
-packages = [{include = "release_test", from = "src"}]
+packages-mode = false
 
 
 [build-system]
@@ -33,6 +33,7 @@ allow_zero_version = true
 repo_dir = "C:\\Users\\rahul\\PycharmProjects\\release-test\\release-test"
 no_git_verify = false
 tag_format = "v{version}"
+version_variables = ["release_test/__init__.py:__version__"]
 
 [tool.semantic_release.branches.main]
 match = "(main|master)"
