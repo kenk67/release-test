@@ -2,9 +2,6 @@ name: Version Bump and Changelog
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main  # Optionally trigger on pushes to main
 
 jobs:
   release:
