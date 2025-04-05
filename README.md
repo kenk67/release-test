@@ -14,6 +14,13 @@
 2. A pre-release refers to a version that is not yet stable and is intended for testing or development purposes.
     - It is indicated by appending a hyphen and a string to the version number, such as `1.0.0-alpha` or `1.0.0-beta`.
     - Does the same as a release, but the version number will be suffixed with a pre-release token
+3. Version and Tags
+    - The version number reflects the logical progression of your software based on the types of changes introduced.
+    - The tag is the actual marker in your Git repository that corresponds to a specific released version. The tag name
+      is often the version number prefixed with v.
+        - The tag format is specified in the config file, with `tag_format` variable.
+    - **Note**: if the tag format changes at some point in the repository’s history, historic versions that no longer
+      match this pattern will not be considered as versions.
 
 ---
 
@@ -138,3 +145,34 @@ prerelease_token = "alpha"
 - All `feature-*` branches produce prereleases like `v1.2.0-alpha.1`.
 
 ## Changelog
+
+- Dependent variables:
+    - `mode` and `insertion_flag`
+        - mode → `init` and `update` (init will create a new changelog everytime)
+        - `insertion_flag` is used with `update` mode to insert the new changes at the top or bottom of the changelog
+          file.
+- `exclude_commit_patterns` → This can be used to remove commits that could not be parsed by the parser and are placed
+  in the unknown section in the release or changelog.
+
+## Other configurations
+
+- `commit_author` → The author who will increment the version and commit the changes
+- `commit_message` → The message that will be used for the commit when doing a release
+
+## Commit Parser
+
+- It is the commit parser’s job to extract the change impact from the commit message to determine the severity of the
+  changes and then subsequently determine the semver level that the version should be bumped to for the next release.
+
+1) Parsers →
+    - Both Conventional and Angular Parser have same
+        - version bump determination
+        - changelog generation
+        - pull request identification
+        - Linked issues identification
+        - squash merge commit evaluation
+    - All of PSR built-in parsers implement common pull/merge request identifier detection logic to extract
+      pull/merge request numbers from the commit message
+
+2) Parser options →
+    - The conventional parse options are derived from the Angular parser options
