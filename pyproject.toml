@@ -32,7 +32,7 @@ allow_zero_version = true
 repo_dir = "C:\\Users\\rahul\\PycharmProjects\\release-test\\release-test"
 no_git_verify = false
 tag_format = "v{version}"
-version_variables = ["release_test/__init__.py:__version__"]
+version_variables = ["src/release_test/__init__.py:__version__"]
 
 [tool.semantic_release.branches.main]
 match = "(main|master)"
@@ -45,7 +45,6 @@ prerelease_token = "feat"
 prerelease = true
 
 [tool.semantic_release.changelog]
-changelog_file = ""
 exclude_commit_patterns = []
 mode = "init"
 insertion_flag = "<!-- version list -->"
